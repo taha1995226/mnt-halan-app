@@ -1,0 +1,15 @@
+{
+  "name": "MNT-HALAN",
+  "short_name": "MNT-HALAN",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a1a12",
+  "theme_color": "#0a1a12",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/512x512/00c853/ffffff?text=MNT",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
