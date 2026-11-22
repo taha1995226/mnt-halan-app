@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNT - HALAN</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,Arial;background:#000;color:#fff;min-height:100vh}
+.smoke{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 500px 300px at 15% 10%, rgba(16,185,129,.35), transparent 60%),radial-gradient(ellipse 600px 400px at 85% 20%, rgba(16,185,129,.28), transparent 60%),radial-gradient(ellipse 600px 500px at 10% 80%, rgba(16,185,129,.30), transparent 60%),radial-gradient(ellipse 700px 400px at 90% 90%, rgba(16,185,129,.32), transparent 60%)}
+.wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 18px 14px}
+.logo{font-family:Georgia,serif;font-size:54px;font-weight:700;line-height:1;text-align:center;margin-top:55px}
+.logo .g{color:#0f9d6b}.logo .w{color:#fff}
+.sub{font-size:17px;color:#d1d5db;margin-top:14px;text-align:center}
+.card{width:100%;max-width:400px;margin-top:58px;background:rgba(10,25,20,.72);border:1px solid rgba(16,185,129,.45);border-radius:18px;padding:28px 22px 24px}
+.card h2{text-align:center;font-size:34px;font-weight:800;margin-bottom:22px}
+.field{position:relative;margin-bottom:14px}
+.field input{width:100%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:16px 48px 16px 44px;color:#fff;font-size:17px;outline:none;text-align:right}
+.field input::placeholder{color:#9ca3af}
+.field .ic{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:19px}
+.field .eye{position:absolute;left:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:19px}
+.btn{width:100%;background:#0f9d6b;border:none;color:#fff;padding:16px;border-radius:10px;font-size:26px;font-weight:800;cursor:pointer;margin-top:8px}
+.err{display:none;text-align:center;color:#fca5a5;font-size:14px;margin-top:10px}
+.footer{margin-top:auto;text-align:center;color:#d1d5db;font-size:14px;line-height:1.7;padding-top:40px}
+</style>
+</head>
+<body>
+<div class="smoke"></div>
+<div class="wrap">
+<div class="logo"><span class="g">M</span><span class="g">N</span><span class="w">T</span><span class="w"> - </span><span class="g">H</span><span class="w">ALAN</span></div>
+<div class="sub">للتمويل الاستهلاكي - فرع اللاهون</div>
+<div class="card">
+<h2>تسجيل الدخول</h2>
+<div class="field"><span class="ic">👤</span><input id="user" placeholder="اسم المستخدم" autocomplete="off"></div>
+<div class="field"><span class="ic">🔒</span><input id="pass" type="password" placeholder="كلمة السر"><button class="eye" onclick="togglePass()">👁️</button></div>
+<button class="btn" onclick="login()">دخول</button>
+<div id="err" class="err">اسم المستخدم أو كلمة السر غلط - تواصل مع الأدمن</div>
+</div>
+<div class="footer">إعداد م : <b>طه حسان</b><br>01016903797</div>
+</div>
+<script>
+function hash(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return 'h'+h.toString(36);}
+function getUsers(){try{return JSON.parse(localStorage.getItem('mnt_users')||'[]')}catch(e){return []}}
+function saveUsers(u){localStorage.setItem('mnt_users',JSON.stringify(u))}
+(function init(){let users=getUsers();if(!users.find(x=>x.u==='Admin')){users.push({u:'Admin',p:hash('T1995'),role:'admin'});saveUsers(users);}})();
+function togglePass(){var p=document.getElementById('pass');p.type=p.type==='password'?'text':'password';}
+function login(){var u=document.getElementById('user').value.trim();var p=document.getElementById('pass').value.trim();var users=getUsers();var found=users.find(x=>x.u===u && x.p===hash(p));if(found){localStorage.setItem('mnt_current',JSON.stringify({u:found.u,role:found.role}));alert('تم الدخول بنجاح - أهلاً بيك يا '+found.u);}else{document.getElementById('err').style.display='block';}}
+</script>
+</body>
+</html>
