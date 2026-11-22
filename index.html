@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNT-HALAN</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1a12">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{background:#0a1a12;color:#fff;min-height:100vh}
+.page{display:none;padding:16px;padding-bottom:120px;max-width:480px;margin:auto}
+.page.active{display:block}
+.glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:16px}
+.logo{text-align:center;padding:36px 0 16px}
+.logo h1{font-size:36px}
+.logo p{opacity:.7;font-size:13px;margin-top:6px}
+input,select{width:100%;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.12);color:#fff;font-size:16px;margin-top:8px;outline:none}
+input::placeholder{color:rgba(255,255,255,.55)}
+select option{color:#000}
+label{display:block;margin-top:14px;font-weight:700}
+.btn{width:100%;padding:15px;border:none;border-radius:14px;background:#00c853;color:#fff;font-size:18px;font-weight:800;margin-top:18px}
+.btn2{background:#ff9800}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.35);padding:9px 12px;border-radius:10px;color:#fff;font-size:13px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.avatar{width:52px;height:52px;border-radius:50%;background:#2e7d5b;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border:2px solid #4caf7d}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.card{padding:15px}
+.card b{font-size:25px;display:block;margin-top:6px}
+.card span{font-size:12px;opacity:.8}
+.menu{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.menu div{padding:15px;display:flex;justify-content:space-between;align-items:center}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.badge{font-size:12px;padding:4px 10px;border-radius:20px}
+.green{background:#1b5e20}.red{background:#7a1f1f}.orange{background:#8a5a00}
+.nav{position:fixed;bottom:12px;left:12px;right:12px;max-width:460px;margin:auto;display:flex;justify-content:space-between;background:rgba(20,40,28,.97);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:8px;z-index:99}
+.nav button{background:none;border:none;color:#aaa;font-size:12px;padding:6px}
+.nav button.active{color:#00e676;font-weight:800}
+.flex{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.small{font-size:13px;opacity:.8}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.popup.show{display:flex}
+.popup-box{width:100%;max-width:480px;background:#143324;border-radius:24px 24px 0 0;padding:22px}
+.chip{padding:8px 12px;border-radius:20px;font-size:13px}
+</style>
+</head>
+<body>
+<div id="login" class="page active">
+<div class="logo"><h1>MNT - HALAN</h1><p>للتمويل الاستهلاكي - فرع اللاهون</p><p style="margin-top:12px">إعداد م : طه حسان<br>01016903797</p></div>
+<div class="glass"><label>اسم المستخدم</label><input id="u" placeholder="Admin أو Taha"><label>كلمة السر</label><input id="p" type="password" placeholder="1995"><button class="btn" onclick="login()">دخول</button><p id="err" style="color:#ff8a80;text-align:center;margin-top:10px"></p><p class="small" style="text-align:center;margin-top:8px">Admin / 1995 للأدمن - Taha / 1995 للموظف</p></div>
+</div>
+<div id="admin" class="page">
+<div class="glass top"><div><b style="font-size:21px">لوحة الأدمن</b><p class="small">مرحباً، إليك نظرة عامة</p></div><div class="avatar">ط ح</div></div>
+<p style="margin-top:12px;font-weight:700">طه حسان - مدير النظام</p>
+<div class="grid">
+<div class="glass card"><span>إجمالي التحصيل</span><b>84500 ج</b><span style="color:#7CFC9A">▲ +12.5%</span></div>
+<div class="glass card"><span>إجمالي العملاء</span><b>124</b><span>▲ +8 هذا الشهر</span></div>
+<div class="glass card"><span>موظفين نشطين</span><b>8</b><span>● 8 من 10</span></div>
+<div class="glass card"><span>أقساط متأخرة</span><b>12</b><span style="color:#FFC107">⚠ متابعة</span></div>
+</div>
+<div class="menu">
+<div class="glass" onclick="show('employees')">إدارة الموظفين <span>‹</span></div>
+<div class="glass" onclick="show('customers')">إدارة العملاء <span>‹</span></div>
+<div class="glass" onclick="show('installments')">تقارير التحصيل <span>‹</span></div>
+<div class="glass" onclick="show('settings')">إعدادات النظام <span>‹</span></div>
+</div>
+</div>
+<div id="employees" class="page">
+<div class="glass top"><div><b style="font-size:21px">إدارة الموظفين</b><p class="small">مرحباً، المدير</p></div><button class="btn-outline" onclick="logout()">خروج</button></div>
+<input placeholder="ابحث عن موظف" oninput="renderEmp(this.value)">
+<div class="flex"><span class="glass chip">10 موظفين</span><span class="glass chip">8 نشط 🟢</span><span class="glass chip">2 موقوف 🔴</span></div>
+<div id="empList" style="margin-top:12px"></div>
+<button class="btn" onclick="show('addEmp')">+ إضافة موظف جديد</button>
+</div>
+<div id="addEmp" class="page">
+<h2 style="text-align:center">إضافة موظف جديد</h2>
+<div class="glass" style="margin-top:14px;text-align:center">
+<div style="width:80px;height:80px;border:2px dashed #aaa;border-radius:50%;margin:auto;display:flex;align-items:center;justify-content:center;font-size:28px">📷</div><p style="margin-top:8px">إضافة صورة</p>
+<label style="text-align:right">الاسم الكامل</label><input id="eName" placeholder="طه حسان">
+<label style="text-align:right">رقم الموبايل</label><input id="ePhone" placeholder="05XXXXXXXX">
+<label style="text-align:right">اسم المستخدم</label><input id="eUser" placeholder="Taha">
+<label style="text-align:right">كلمة السر</label><input id="ePass" type="password" placeholder="••••">
+<label style="text-align:right">تأكيد كلمة السر</label><input id="ePass2" type="password" placeholder="1995">
+<button class="btn" onclick="saveEmp()">حفظ الموظف</button>
+<button class="btn-outline" style="width:100%;margin-top:10px;padding:13px" onclick="show('employees')">إلغاء</button>
+</div>
+</div>
+<div id="empHome" class="page">
+<div class="glass top"><div><b>أهلاً م : طه حسان</b><p class="small">السبت 21 نوفمبر</p></div><div class="avatar">ط ح</div></div>
+<div class="glass" style="margin-top:14px"><span>إجمالي المحفظة</span><b style="font-size:26px;display:block">184500 ج.م</b><span class="small">68% تمويل - 32% جمعية</span></div>
+<div class="grid"><div class="glass card"><span>أقساط الشهر</span><b>17 قسط</b><span>27650 ج.م</span></div><div class="glass card"><span>متأخرة</span><b style="color:#FFC107">5 أقساط</b><span>9200 ج.م</span></div></div>
+<div class="menu"><div class="glass" onclick="show('customers')">العملاء <span>‹</span></div><div class="glass" onclick="show('installments')">الأقساط <span>‹</span></div><div class="glass" onclick="show('settings')">الإعدادات <span>‹</span></div></div>
+<button class="btn" onclick="logout()">تسجيل الخروج</button>
+</div>
+<div id="customers" class="page">
+<div class="glass top"><div><b style="font-size:21px">العملاء</b><p class="small">124 عميل</p></div><button class="btn-outline" onclick="show('addCustomer')">+ عميل</button></div>
+<input placeholder="ابحث عن عميل" oninput="renderCust(this.value)" style="margin-top:14px">
+<div id="custList" style="margin-top:12px"></div>
+</div>
+<div id="custDetail" class="page">
+<div class="glass top"><div><b id="cdName" style="font-size:21px">أحمد محمد</b><p class="small">عميل تمويل استهلاكي</p></div><div class="avatar">أ م</div></div>
+<div class="glass" style="margin-top:14px"><div class="row"><span>إجمالي المبلغ</span><b>15000 ج</b></div><div class="row" style="margin-top:10px"><span>المدفوع</span><b style="color:#7CFC9A">6000 ج</b></div><div class="row" style="margin-top:10px"><span>المتبقي</span><b style="color:#FFC107">9000 ج</b></div><div class="row" style="margin-top:10px"><span>القسط الشهري</span><b>1500 ج</b></div></div>
+<div class="menu"><div class="glass" onclick="showPopup('collectPopup')">💰 تحصيل قسط <span>‹</span></div><div class="glass" onclick="showPopup('remindPopup')">🔔 تذكير بالدفع <span>‹</span></div><div class="glass" onclick="show('addProduct')">+ إضافة منتج <span>‹</span></div></div>
+<button class="btn btn2" onclick="show('customers')">رجوع للعملاء</button>
+</div>
+<div id="addCustomer" class="page">
+<h2 style="text-align:center">إضافة عميل جديد</h2>
+<div class="glass" style="margin-top:14px"><label>اسم العميل</label><input id="cName" placeholder="أحمد محمد"><label>رقم الموبايل</label><input placeholder="01XXXXXXXX"><label>نوع العميل</label><select><option>تمويل استهلاكي</option><option>جمعية</option></select><label>إجمالي المبلغ</label><input placeholder="15000"><label>القسط الشهري</label><input placeholder="1500"><button class="btn" onclick="saveCust()">حفظ العميل</button><button class="btn-outline" style="width:100%;margin-top:10px;padding:13px" onclick="show('customers')">إلغاء</button></div>
+</div>
+<div id="addProduct" class="page">
+<h2 style="text-align:center">إضافة منتج</h2>
+<div class="glass" style="margin-top:14px"><label>اسم المنتج</label><input placeholder="ثلاجة - غسالة - موبايل"><label>سعر المنتج</label><input placeholder="15000"><label>المقدم</label><input placeholder="3000"><label>عدد الأقساط</label><input placeholder="10"><button class="btn" onclick="alert('تم حفظ المنتج');show('custDetail')">حفظ المنتج</button></div>
+</div>
+<div id="installments" class="page">
+<h2 style="text-align:center">الأقساط</h2>
+<div class="glass" style="margin-top:14px"><div class="row"><b>أحمد محمد</b><span class="badge orange">متأخر - 1500 ج</span></div><button class="btn" style="margin-top:12px" onclick="showPopup('collectPopup')">تحصيل</button></div>
+<div class="glass" style="margin-top:12px"><div class="row"><b>سارة علي</b><span class="badge green">تم الدفع - 2000 ج</span></div></div>
+<div class="glass" style="margin-top:12px"><div class="row"><b>مصطفى كريم</b><span class="badge orange">متأخر - 1200 ج</span></div><button class="btn" style="margin-top:12px" onclick="showPopup('collectPopup')">تحصيل</button></div>
+</div>
+<div id="settings" class="page">
+<h2 style="text-align:center">الإعدادات</h2>
+<div class="glass" style="margin-top:14px"><label>اسم الفرع</label><input value="فرع اللاهون"><label>اسم المدير</label><input value="طه حسان"><label>رقم الموبايل</label><input value="01016903797"><button class="btn" onclick="alert('تم حفظ الإعدادات')">حفظ الإعدادات</button><button class="btn-outline" style="width:100%;margin-top:12px;padding:13px" onclick="logout()">تسجيل الخروج</button></div>
+</div>
+<div id="collectPopup" class="popup"><div class="popup-box"><h3>تحصيل قسط</h3><p class="small" style="margin-top:6px">أحمد محمد - قسط 1500 ج</p><label>المبلغ المحصل</label><input value="1500"><label>طريقة الدفع</label><select><option>كاش</option><option>فودافون كاش</option><option>انستاباي</option></select><button class="btn" onclick="alert('تم تحصيل 1500 ج بنجاح');hidePopups()">تأكيد التحصيل</button><button class="btn-outline" style="width:100%;margin-top:10px;padding:13px" onclick="hidePopups()">إلغاء</button></div></div>
+<div id="remindPopup" class="popup"><div class="popup-box"><h3>🔔 تذكير بالدفع</h3><p style="margin-top:10px">هتبعت رسالة تذكير لأحمد محمد؟<br>القسط: 1500 ج - متأخر 3 أيام</p><button class="btn" onclick="alert('تم إرسال التذكير');hidePopups()">إرسال تذكير واتساب</button><button class="btn-outline" style="width:100%;margin-top:10px;padding:13px" onclick="hidePopups()">إلغاء</button></div></div>
+<div class="nav" id="nav" style="display:none"><button onclick="goHome()">🏠 الرئيسية</button><button onclick="show('customers')">👥 العملاء</button><button onclick="show('installments')">💰 الأقساط</button><button onclick="show('settings')">⚙️ الإعدادات</button></div>
+<script>
+let isAdmin=false;
+let employees=[{name:'طه حسان',role:'مدير النظام',phone:'+20 100 123 4567',status:'نشط'},{name:'سارة أحمد',role:'موظفة تحصيل',phone:'+20 103 222 9988',status:'موقوف'},{name:'مصطفى علي',role:'موظف تحصيل',phone:'+20 102 777 3344',status:'نشط'}];
+let customers=[{name:'أحمد محمد',phone:'0100 123 4567',amount:'15000',status:'متأخر'},{name:'سارة علي',phone:'0101 222 3344',amount:'20000',status:'تم الدفع'},{name:'مصطفى كريم',phone:'0102 333 4455',amount:'12000',status:'متأخر'}];
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('nav').style.display=(id==='login')?'none':'flex';window.scrollTo(0,0);}
+function goHome(){show(isAdmin?'admin':'empHome');}
+function login(){let u=document.getElementById('u').value.trim();let p=document.getElementById('p').value.trim();if(u==='Admin'&&p==='1995'){isAdmin=true;show('admin');renderEmp();renderCust();}else if(u==='Taha'&&p==='1995'){isAdmin=false;show('empHome');renderCust();}else document.getElementById('err').innerText='اسم المستخدم أو كلمة السر غلط';}
+function logout(){show('login');document.getElementById('u').value='';document.getElementById('p').value='';}
+function renderEmp(f=''){let l=document.getElementById('empList');l.innerHTML='';employees.filter(e=>e.name.includes(f)).forEach((e,i)=>{l.innerHTML+=`<div class="glass" style="margin-bottom:10px"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar" style="width:44px;height:44px;font-size:16px">${e.name[0]}</div><div><b>${e.name}</b><p class="small">${e.role} - ${e.phone}</p></div></div><span class="badge ${e.status==='نشط'?'green':'red'}">${e.status}</span></div><div class="flex"><button class="btn-outline" onclick="changePass(${i})">تغيير كلمة السر</button><button class="btn-outline" onclick="toggleEmp(${i})">${e.status==='نشط'?'إيقاف':'تنشيط'}</button></div></div>`;});}
+function renderCust(f=''){let l=document.getElementById('custList');l.innerHTML='';customers.filter(c=>c.name.includes(f)).forEach(c=>{l.innerHTML+=`<div class="glass" style="margin-bottom:10px" onclick="openCust('${c.name}')"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar" style="width:44px;height:44px">${c.name[0]}</div><div><b>${c.name}</b><p class="small">${c.phone} - ${c.amount} ج</p></div></div><span class="badge ${c.status==='متأخر'?'orange':'green'}">${c.status}</span></div></div>`;});}
+function openCust(name){document.getElementById('cdName').innerText=name;show('custDetail');}
+function changePass(i){let np=prompt('كلمة السر الجديدة لـ '+employees[i].name);if(np)alert('تم تغيير كلمة السر لـ '+employees[i].name);}
+function toggleEmp(i){employees[i].status=employees[i].status==='نشط'?'موقوف':'نشط';renderEmp();}
+function saveEmp(){let n=document.getElementById('eName').value,ph=document.getElementById('ePhone').value,u=document.getElementById('eUser').value,p1=document.getElementById('ePass').value,p2=document.getElementById('ePass2').value;if(!n||!u||!p1){alert('كمل البيانات الأول');return;}if(p1!==p2){alert('كلمة السر والتأكيد مش زي بعض');return;}employees.push({name:n,role:'موظف تحصيل',phone:ph,status:'نشط'});alert('تم حفظ الموظف '+n);show('employees');renderEmp();}
+function saveCust(){let n=document.getElementById('cName').value;if(!n){alert('اكتب اسم العميل');return;}customers.push({name:n,phone:'0100 000 0000',amount:'15000',status:'متأخر'});alert('تم حفظ العميل '+n);show('customers');renderCust();}
+function showPopup(id){document.getElementById(id).classList.add('show');}
+function hidePopups(){document.querySelectorAll('.popup').forEach(p=>p.classList.remove('show'));}
+renderEmp();renderCust();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+</script>
+</body>
+</html>
